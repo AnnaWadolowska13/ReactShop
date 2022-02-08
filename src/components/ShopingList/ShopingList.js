@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import commonColumnsStyles from "../../common/styles/Columns.module.scss";
 
+
 function ShopingList(props) {
   const [shopingList, setShopingList] = useState([]);
   const liShopingList = shopingList.map((item) =>
@@ -10,7 +11,7 @@ function ShopingList(props) {
     let list = [...shopingList];
     // console.log(typeof event.target.dataset.id)
     // console.log(typeof list[0].key)
-    let idToRemove = parseInt(event.target.dataset.id);
+    let idToRemove = event.target.dataset.id;
     let updateList = list.filter((product) => product.key !== idToRemove )
     console.log(updateList)
     setShopingList(updateList);

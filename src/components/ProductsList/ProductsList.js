@@ -1,17 +1,16 @@
 import React from "react";
 import commonColumnsStyles from "../../common/styles/Columns.module.scss";
 import { useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
 
 function ProductsList(props) {
-  const [basketProductKey, setBasketProductKey] = useState(0);
   const productsList = props.products;
   function handleClick(event) {
     let chosenProduct = productsList.find(product => product.nazwa === event.target.textContent)
     chosenProduct = {
       ...chosenProduct,
-      key: basketProductKey,
+      key: uuidv4(), // generate key
     };
-    setBasketProductKey(basketProductKey + 1)
     props.clicker(chosenProduct)
   }
   return (
