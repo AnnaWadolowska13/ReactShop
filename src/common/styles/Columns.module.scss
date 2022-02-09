@@ -27,6 +27,7 @@ $color-red: red;
   font-size: calc(10px + 2vmin);
   color: $color-red;
   width: 100%;
+  cursor: default;
 }
 
 @keyframes App-logo-spin {
