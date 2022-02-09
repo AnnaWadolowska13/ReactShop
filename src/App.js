@@ -17,7 +17,8 @@ function App() {
   }
   return (
     <div className={styles.appWrapper}>
-      <AddProducts />
+      <AddProducts productsList={productsList} addProduct={setProductList} /> 
+      {/* dać potem innna funckje ktora po dodaniu nowego produktu wywola set ale tez filtry */}
       <ProductsFilters />
       <div className={styles.columnsWrapper}>
         <ProductsList products={productsList} clicker={handlerClicker}/>
