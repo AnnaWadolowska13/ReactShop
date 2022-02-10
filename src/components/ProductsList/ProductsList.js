@@ -10,6 +10,7 @@ function ProductsList(props) {
     chosenProduct = {
       ...chosenProduct,
       key: uuidv4(), // generate key
+      lineThrough: false
     };
     props.clicker(chosenProduct)
   }

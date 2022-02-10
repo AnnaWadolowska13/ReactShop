@@ -52,7 +52,7 @@ class ProductsFilters extends React.Component {
         if (this.state.foodProduct) {
             filteredList = filteredList.filter((item) => item.produktSpozywczy === true);
         }
-        this.props.filterProducts(filteredList)
+        this.props.filterProducts(filteredList);
     };
     render(){
         return (

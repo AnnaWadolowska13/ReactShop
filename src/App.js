@@ -13,8 +13,9 @@ function App() {
   const [productsList, setProductList] = useState(products);
   const [productsDisplayList, setDisplayList] = useState(products);
   const [productToShopingList, setNewProductInBasket] = useState();
+  
   function handlerClicker(product) {
-    console.log(product)
+    // console.log(product)
     setNewProductInBasket(product);
   }
 
