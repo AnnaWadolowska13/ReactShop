@@ -8,21 +8,25 @@ import styles from './App.module.scss';
 import products from "./common/consts/produkty";
 import { useState } from 'react';
 
+
 function App() {
   const [productsList, setProductList] = useState(products);
-  const [productToShopingList, setProductShopingList] = useState();
+  const [productsDisplayList, setDisplayList] = useState(products);
+  const [productToShopingList, setNewProductInBasket] = useState();
+  
   function handlerClicker(product) {
-    console.log(product)
-    setProductShopingList(product);
+    // console.log(product)
+    setNewProductInBasket(product);
   }
+
   return (
     <div className={styles.appWrapper}>
       <AddProducts productsList={productsList} addProduct={setProductList} /> 
       {/* dać potem innna funckje ktora po dodaniu nowego produktu wywola set ale tez filtry */}
-      <ProductsFilters />
+      <ProductsFilters productsList={productsList} filterProducts={setDisplayList}/>
       <div className={styles.columnsWrapper}>
-        <ProductsList products={productsList} clicker={handlerClicker}/>
-        <ShopingList newProduct={productToShopingList }/>
+        <ProductsList products={productsDisplayList} clicker={handlerClicker}/>
+        <ShopingList newProduct={productToShopingList}/>
       </div>
     </ div>
   );
