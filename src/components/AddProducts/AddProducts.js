@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from '../../common/styles/Headers.module.scss';
-import {setState} from 'react'
 
 class AddProducts extends React.Component {
     constructor(props) {
@@ -12,6 +11,7 @@ class AddProducts extends React.Component {
         }
         this.handleChangeForm = this.handleChangeForm.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.resetFilters = this.resetFilters.bind(this);
     }
     handleChangeForm(event) {
         const target = event.target;
@@ -25,29 +25,41 @@ class AddProducts extends React.Component {
         e.preventDefault();
         if (this.state.nazwa && this.state.kategoria) {
             let list = [...this.props.productsList];
-            list.push(this.state);
-            // console.log(list)
-            this.props.addProduct(list);
+            if (list.find((item) => item.nazwa === this.state.nazwa)) {
+                alert("produkt juz istnieje na liscie");
+            } else {
+                list.push(this.state);
+                // console.log(list)
+                this.props.addProduct(list);
+                this.resetFilters();                
+            }
         } else {
             alert("nie uzupełniono formularza" )
         }
-
+    }
+    resetFilters() {
+        this.setState({
+            nazwa: "",
+            kategoria: "",
+            produktSpozywczy: false,
+        }) 
     }
     render() {
+        const { nazwa, kategoria, produktSpozywczy } = this.state;
         return (
             <div className={styles.Wrapper}>
                 <form onSubmit={this.handleSubmit}>
                     <label>
                         Nazwa:
-                        <input type="text" value={this.state.nazwa} name="nazwa" onChange={this.handleChangeForm}/>
+                        <input type="text" value={nazwa} name="nazwa" onChange={this.handleChangeForm}/>
                     </label>
                     <label>
                         Kategoria:  
-                        <input type="text" value={this.state.kategoria} name="kategoria" onChange={this.handleChangeForm}/>
+                        <input type="text" value={kategoria} name="kategoria" onChange={this.handleChangeForm}/>
                     </label>
                     <label>
                         Produkt spożywczy
-                        <input type="checkbox" value={this.state.produktSpozywczy} name="produktSpozywczy" onChange={this.handleChangeForm}/>
+                        <input type="checkbox" checked={produktSpozywczy} name="produktSpozywczy" onChange={this.handleChangeForm}/>
                     </label>
                     <button>Dodaj</button>
                 </form>

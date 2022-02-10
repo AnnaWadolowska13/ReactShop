@@ -5,9 +5,10 @@ import commonColumnsStyles from "../../common/styles/Columns.module.scss";
 function ShopingList(props) {
   const [shopingList, setShopingList] = useState([]);
   const liShopingList = shopingList.map((item) =>
-    <li key={item.key} data-id={item.key} onClick={removeProduct}> {item.nazwa} </li>)
+    <li key={item.key} data-id={item.key} onContextMenu={removeProduct}> {item.nazwa} </li>)
 
   function removeProduct(event) {
+    event.preventDefault();
     let list = [...shopingList];
     // console.log(typeof event.target.dataset.id)
     // console.log(typeof list[0].key)
