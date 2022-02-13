@@ -12,7 +12,7 @@ function ProductsList(props) {
       key: uuidv4(), // generate key
       lineThrough: false
     };
-    props.clicker(chosenProduct)
+    props.clicker(chosenProduct);
   }
   function getProductsList() {
     return (

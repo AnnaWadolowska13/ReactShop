@@ -12,12 +12,8 @@ import { useState } from 'react';
 function App() {
   const [productsList, setProductList] = useState(products);
   const [productsDisplayList, setDisplayList] = useState(products);
-  const [productToShopingList, setNewProductInBasket] = useState();
+  const [basketList, setBasketList] = useState([]);
   
-  function handlerClicker(product) {
-    // console.log(product)
-    setNewProductInBasket(product);
-  }
   function addNewProduct(product) {
     let list = [...productsList];
     if (list.find((item) => item.nazwa === product.nazwa)) {
@@ -26,16 +22,30 @@ function App() {
       list.push(product);
       setProductList(list);
     }
-}
+  }
+  function addProductToBusket(product) {
+    let list = [...basketList, product];
+    setBasketList(list);
+  }
 
+  function removeProductFromBusket(product) {
+    let idToRemove = product.dataset.id;
+    let updateList = basketList.filter((product) => product.key !== idToRemove )
+    setBasketList(updateList);
+  }
+  function updateBusketList(product) {
+    let id = product.dataset.id;
+    const updateList = basketList.map((item) => item.key === id ? {...item, lineThrough: !item.lineThrough} : item)
+    setBasketList(updateList);
+    // console.log(event.target.textContent)
+  }
   return (
     <div className={styles.appWrapper}>
-      <AddProducts productsList={productsList} newProduct={addNewProduct} /> 
-      {/* dać potem innna funckje ktora po dodaniu nowego produktu wywola set ale tez filtry */}
+      <AddProducts newProduct={addNewProduct} /> 
       <ProductsFilters productsList={productsList} filterProducts={setDisplayList}/>
       <div className={styles.columnsWrapper}>
-        <ProductsList products={productsDisplayList} clicker={handlerClicker}/>
-        <ShopingList newProduct={productToShopingList}/>
+        <ProductsList products={productsDisplayList} clicker={addProductToBusket}/>
+        <ShopingList basketList={basketList} removeProduct={removeProductFromBusket} updateList={updateBusketList}/>
       </div>
     </ div>
   );

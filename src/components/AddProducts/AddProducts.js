@@ -9,7 +9,6 @@ class AddProducts extends React.Component {
             kategoria: "",
             produktSpozywczy: false,
         }
-        this.resetFilters = this.resetFilters.bind(this);
     }
     handleChangeForm = (event) => {
         const target = event.target;
@@ -19,30 +18,13 @@ class AddProducts extends React.Component {
             [name]: value
         });
     }
-    handleSubmit= (e) => {
+    handleSubmit = (e) => {
         e.preventDefault();
         if (this.state.nazwa && this.state.kategoria) {
             this.props.newProduct(this.state);
         }else {
             alert("nie uzupełniono formularza" )
         }
-        this.resetFilters();
-
-        // if (this.state.nazwa && this.state.kategoria) {
-        //     let list = [...this.props.productsList];
-        //     if (list.find((item) => item.nazwa === this.state.nazwa)) {
-        //         alert("produkt juz istnieje na liscie");
-        //     } else {
-        //         list.push(this.state);
-        //         // console.log(list)
-        //         this.props.addProduct(list);
-        //         this.resetFilters();                
-        //     }
-        // } else {
-        //     alert("nie uzupełniono formularza" )
-        // }
-    }
-    resetFilters() {
         this.setState({
             nazwa: "",
             kategoria: "",
