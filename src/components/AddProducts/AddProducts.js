@@ -9,11 +9,9 @@ class AddProducts extends React.Component {
             kategoria: "",
             produktSpozywczy: false,
         }
-        this.handleChangeForm = this.handleChangeForm.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
         this.resetFilters = this.resetFilters.bind(this);
     }
-    handleChangeForm(event) {
+    handleChangeForm = (event) => {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
@@ -21,21 +19,28 @@ class AddProducts extends React.Component {
             [name]: value
         });
     }
-    handleSubmit(e) {
+    handleSubmit= (e) => {
         e.preventDefault();
         if (this.state.nazwa && this.state.kategoria) {
-            let list = [...this.props.productsList];
-            if (list.find((item) => item.nazwa === this.state.nazwa)) {
-                alert("produkt juz istnieje na liscie");
-            } else {
-                list.push(this.state);
-                // console.log(list)
-                this.props.addProduct(list);
-                this.resetFilters();                
-            }
-        } else {
+            this.props.newProduct(this.state);
+        }else {
             alert("nie uzupełniono formularza" )
         }
+        this.resetFilters();
+
+        // if (this.state.nazwa && this.state.kategoria) {
+        //     let list = [...this.props.productsList];
+        //     if (list.find((item) => item.nazwa === this.state.nazwa)) {
+        //         alert("produkt juz istnieje na liscie");
+        //     } else {
+        //         list.push(this.state);
+        //         // console.log(list)
+        //         this.props.addProduct(list);
+        //         this.resetFilters();                
+        //     }
+        // } else {
+        //     alert("nie uzupełniono formularza" )
+        // }
     }
     resetFilters() {
         this.setState({

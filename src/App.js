@@ -18,10 +18,19 @@ function App() {
     // console.log(product)
     setNewProductInBasket(product);
   }
+  function addNewProduct(product) {
+    let list = [...productsList];
+    if (list.find((item) => item.nazwa === product.nazwa)) {
+      alert("produkt juz istnieje na liscie");
+    } else {
+      list.push(product);
+      setProductList(list);
+    }
+}
 
   return (
     <div className={styles.appWrapper}>
-      <AddProducts productsList={productsList} addProduct={setProductList} /> 
+      <AddProducts productsList={productsList} newProduct={addNewProduct} /> 
       {/* dać potem innna funckje ktora po dodaniu nowego produktu wywola set ale tez filtry */}
       <ProductsFilters productsList={productsList} filterProducts={setDisplayList}/>
       <div className={styles.columnsWrapper}>
