@@ -16,12 +16,9 @@ function ShopingList(props) {
     </li>)
   
   function lineThroughEvent(event) {
-    let list = [...shopingList];
     let id = event.target.dataset.id;
-    let index = list.findIndex((product) => product.key === id);
-    // console.log(id)
-    list[index].lineThrough = list[index].lineThrough ? false : true;
-    setShopingList(list);
+    const updateList = shopingList.map((item) => item.key === id ? {...item, lineThrough: !item.lineThrough} : item)
+    setShopingList(updateList);
     // console.log(event.target.textContent)
   }
 
