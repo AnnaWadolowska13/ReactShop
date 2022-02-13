@@ -9,51 +9,25 @@ class ProductsFilters extends React.Component {
             productName: "",
             foodProduct: false,
         }
-        this.getProductsTypes = this.getProductsTypes.bind(this);
-        this.filter = this.filter.bind(this);
         this.handleChange = this.handleChange.bind(this);
-
-        
     }
-    componentDidUpdate(prevProps) {
-        if (prevProps.productsList.length !== this.props.productsList.length) {
-            console.log(prevProps.productsList.length, this.props.productsList, "tuttaj")
-            console.log(this.props.productsList, " w filtrowaniu update");
-            this.filter();
-        }
-    }
-    getProductsTypes() {
-        const productsList = this.props.productsList;
-        const productsTypes = productsList.map((product) => product.kategoria);
-        // console.log(productsTypes);
-        return [...new Set(productsTypes)];
-    }
-
+    // componentDidUpdate(prevProps) {
+    //     if (prevProps.productsList.length !== this.props.productsList.length) {
+    //         console.log(prevProps.productsList.length, this.props.productsList, "tuttaj")
+    //         console.log(this.props.productsList, " w filtrowaniu update");
+    //         this.filter();
+    //     }
+    // }
     handleChange(event) {
         const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
         const name = event.target.name;
         this.setState({
             [name]: value
         }, () => {
-            this.filter();
+            this.props.filter(this.state);
         })
         // console.log("zmiana state");
     }
-    filter() {
-        console.log("w filtrze")
-        const productsList = this.props.productsList;
-        let filteredList = productsList;
-        if (this.state.productName) {
-            filteredList = productsList.filter((item) => item.nazwa.toLowerCase().includes(this.state.productName.toLowerCase()));
-        }
-        if (this.state.productType !== 'all') {
-            filteredList = filteredList.filter((item) => item.kategoria === this.state.productType);
-        }
-        if (this.state.foodProduct) {
-            filteredList = filteredList.filter((item) => item.produktSpozywczy === true);
-        }
-        this.props.filterProducts(filteredList);
-    };
     render(){
         return (
             <div className={styles.Wrapper}>
@@ -66,7 +40,7 @@ class ProductsFilters extends React.Component {
                         Kategoria:
                         <select value= {this.state.productType} name="productType" onChange={this.handleChange}>
                             <option value="all" key="all">Wszystkie</option>
-                            {this.getProductsTypes().map((type) => <option value={type} key={type}> {type}</option>)}
+                            {this.props.categoryList.map((type) => <option value={type} key={type}> {type}</option>)}
                         </select>
                     </label>
                     <label>
